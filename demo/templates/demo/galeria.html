@@ -1,0 +1,54 @@
+{% extends "demo/base.html" %}
+
+{% block content %}
+<style>
+    h1 {
+        color: white;
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .container1 {
+        text-align: center; /* Asegura que el contenido dentro de container1 esté centrado */
+    }
+
+    .btn-container {
+        margin-top: 20px; /* Espacio superior para separar del título */
+    }
+
+    .btn-container button {
+        margin: 0 auto; /* Centra horizontalmente el botón dentro de su contenedor */
+        display: block; /* Asegura que el botón ocupe todo el ancho disponible */
+    }
+</style>
+
+{% if user.is_staff %}
+<h1>Bienvenido, usted es un:</h1>
+<br>
+<ol style="text-align: center;">
+    {% for e in users %}
+    <li style="text-align: center;">{{ e }}</li>
+    {% endfor %}
+</ol>
+<br><br>
+
+<div class="container1">
+    <form action="" method="POST" id="form">
+        <div class="form">
+            <br><br>
+            <p style="font-size: 25px;">Conozca los postulantes.</p>
+        </div>
+    </form>
+    <!-- Botón para ver postulantes -->
+    {% csrf_token %}
+    <div class="btn-container">
+        <a href="{% url 'crud' %}">
+            <button class="btn btn-info">Postulantes</button>
+        </a>
+    </div>
+</div>
+{% else %}
+<h1>Este usuario no trabaja aquí.</h1>
+{% endif %}
+
+{% endblock %}

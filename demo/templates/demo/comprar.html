@@ -1,0 +1,500 @@
+{% extends "demo/base.html" %}
+{% load static %}
+{%block content %}
+<style>
+    /* Estilos para el carrito */
+.carrito {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #252627;
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.carrito-items {
+    margin-bottom: 20px;
+}
+
+.carrito-items table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.carrito-items th, .carrito-items td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: center;
+}
+
+.carrito-items th {
+    background-color: #313335;
+}
+
+.carrito-total {
+    text-align: right;
+}
+
+.carrito-total strong {
+    font-weight: bold;
+}
+
+.carrito-total .total-precio {
+    font-weight: bold;
+    color: white;
+}
+
+.carrito button {
+    background-color: rgb(31, 136, 205);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.carrito button:hover {
+    background-color: #1e88e5;
+}
+span.total-precio{
+    color:black;
+  }
+.btn-info{
+    background-color: #27a1c2 ;
+    }
+    input.carrito-cantidad{
+        color: black;
+      }
+span.carrito-item-title{
+    color:white;
+}
+
+span.carrito-precio.carrito-colum{
+    color:white;
+}
+
+.carrito-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        width: 100%;
+    }
+  
+    .carrito-precio {
+        font-weight: bold;
+    }
+    
+
+  table.carrito-items{
+    color: black;
+  }  
+
+    .carrito-pagar {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .btn-info {
+        background-color:  #27a1c2;
+        color: white;
+        border: none;
+
+        padding: 10px 20px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    .btn-info:hover {
+        background-color:  #27a1c2;
+    }
+    
+
+ @media (max-width: 768px) {
+        .carrito-items {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+
+        .carrito-items table {
+            width: 100%;
+        }
+
+        .carrito-items th,
+        .carrito-items td {
+            padding: 6px;
+        }
+
+        .carrito button {
+            width: 100%;
+        }
+
+        .carrito-cantidad {
+            width: 30px;
+            padding: 4px;
+        }
+
+        .btn-info {
+            max-width: none; /* Ajustar el ancho máximo */
+            width: 100%; /* Ancho completo en pantallas pequeñas */
+            padding: 12px 20px;
+            margin-top: 10px;
+        }
+
+        .borrar {
+            width: 100%;
+            padding: 8px 20px;
+            margin-top: 10px;
+        }
+    }
+</style>
+
+
+    <div class="carrito">
+        <div class="carrito-items">
+            <table class="carrito-items">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <!-- Los elementos del carrito se agregan dinámicamente desde JavaScript -->
+          
+        </div>
+
+        <div class="carrito-total">
+            <strong>Total: </strong><span class="total-precio">$0</span>
+            <a href="#" onclick="redirigirAPago()">
+                <button class="btn btn-info">Pagar</button>
+            </a>
+        </div>
+        <br>
+
+
+        <br><br>
+    </div>
+
+    <header>
+        <div class="header-content container">
+          <div class="header-txt">
+    
+       </header>
+
+    <main class="products container">
+        <div class="box-container" id="lista-1">
+            <div class="box" >
+                <img src="{% static 'imagenbanda/kendrickl.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>Kendrick Lamar</h3>
+                    <p>Formato en vinilo</p>
+                    <p class="precio">43000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="2">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/chancho.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>Chancho en Piedra</h3>
+                    <p>Formato en Vinilo</p>
+                    <p class="precio">53000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="2">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/specials.jpg' %}" alt="">
+                <div class="product-txt">
+                    <h3>The Specials</h3>
+                    <p>Formato en CD</p>
+                    <p class="precio">33000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="1">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/bloquedepre.png' %}" alt="">
+                <div class="product-txt">
+                    <h3>Bloque Depresivo</h3>
+                    <p>Formato en Cassete</p>
+                    <p class="precio">77000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="2">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box" style="display: none;">
+                <img src="{% static 'imagenbanda/bowie.png' %}" alt="">
+                <div class="product-txt">
+                    <h3>David Bowie</h3>
+                    <p>Formato en Cassette</p>
+                    <p class="precio">22000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="3">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/tool1.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>Tool</h3>
+                    <p>Formato en Cassette</p>
+                    <p class="precio">30000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="1">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/flori.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>La Floripondio</h3>
+                    <p>Formato en CD</p>
+                    <p class="precio">13000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="2">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/artic.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>Arctic Monkeys</h3>
+                    <p>Formato en Cassette</p>
+                    <p class="precio">18000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="3">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/post.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>Post Malone</h3>
+                    <p>Formato en Cassette</p>
+                    <p class="precio">15000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="3">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/metallica.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>Metallica</h3>
+                    <p>Calidad premium</p>
+                    <p class="precio">45000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="1">Agregar al carrito</a>
+                </div>
+            </div>
+            <div class="box">
+                <img src="{% static 'imagenbanda/theb.jpeg' %}" alt="">
+                <div class="product-txt">
+                    <h3>The Beatles</h3>
+                    <p>Formato en Vinilo</p>
+                    <p class="precio">58000</p>
+                    <a href="#" class="agregar-carrito btn-3" data-id="3">Agregar al carrito</a>
+                </div>
+            </div>
+        </div>
+        <!-- Botón para cargar más productos -->
+        <div class="btn-2" id="load-more">Cargar Más</div>
+        <br>
+    </main>
+
+    <br><br>
+
+
+        
+<script src="static/js/load.js"></script>
+<script src="static/js/script.js"></script>
+<script src="static/js/boton.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+ <style>
+            .info-txt{
+                width: 50%;
+            }
+            
+            .products{
+                padding: 0 0 50px 0;
+                text-align: center;
+            }
+            
+            .box-container{
+                margin-top: 55px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit,minmax(250px, 1fr));
+                gap: 20px;
+                background-color: #181819;
+                border-radius: 15px;
+                
+            }
+
+            .box p{
+                color: white;
+            }
+
+            .box{
+                border-top: 2px solid #101111;
+                padding: 20px;
+                border-radius: 15px;
+                z-index: 1000;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                display: none;
+            }
+            
+            .box:nth-child(1),
+            .box:nth-child(2),
+            .box:nth-child(3),
+            .box:nth-child(4){
+                display: inline-block;
+            }
+            
+            .box img{
+                width: 120px;
+            }
+            
+            .product-txt h3{
+                font-size: 20px;
+                color: white;
+                margin-bottom: 10px;
+            }
+            
+            .product-txt p{
+                margin-bottom: 25px;
+            }
+            
+            .precio{
+                font-size: 15px;
+                color: #27a1c2;    
+            }
+            
+            .btn-2{
+                background-color: #27a1c2;
+                margin-top: 50px;
+                display: inline-block;
+                padding: 13px 35px;
+                border-radius: 25px;
+                color: #ffffff;
+                font-size: 16px;
+                cursor: pointer;
+                box-shadow: 0 5px 10px rgba(106, 104, 104, 0.2);
+            }
+            
+            .btn-2:hover{
+                background-color: #27a1c2;
+            }
+            
+            .btn-3{
+                display: inline-block;
+                padding: 5px 25px;
+                background-color: #27a1c2;
+                color: #ffffff;
+                border-radius: 10px;
+            }
+            
+            .btn-3:hover{
+                background-color: #27a1c2;
+            }
+            
+            .btn-primary{
+               background-color: #27a1c2;  
+            }
+            
+            #menu{
+                display: none;
+            }
+            
+            .menu-icono{
+                width: 25px;
+            }
+            
+            .menu label{
+                cursor: pointer;
+                display: none;
+            }
+            
+            .submenu{
+                position:relative;
+            }
+            
+            .submenu #carrito{
+                display:none;
+            }
+            
+            
+            .submenu:hover #carrito{
+                display: block;
+                text-align: center;
+                right: 0;
+                left: 0;
+                top: 100%;
+                background-color: #77777797;
+                padding: 20px;
+                min-width: 400px;
+                box-shadow: 0 0 20px rgba(37, 36, 36, 0.2);
+            }
+            
+            table{
+                width: 100%;
+            }
+            
+            th, td{
+                color: #ffffff;
+            }
+            
+            .borrar{
+                background-color: #27a1c2;
+                border-radius: 50%;
+                padding: 5px 10px;
+                text-decoration: none;
+                color: #ffffff;
+                font-weight: 800;
+            }
+            
+            .bg{
+                position: absolute;
+                width: 700px;
+                top: 0;
+                right: 0;
+                z-index: -1;
+            }
+            
+            .header-content{
+                display: flex;
+                align-items: center;
+            }
+            
+            .header-txt{
+                width: 50%;
+                margin-right: 50px;
+            }
+            
+            .header-txt h1{
+                font-size: 55px;
+                line-height: 65px;
+                color: #1d1d1b;
+                margin-bottom: 35px;
+            }
+            
+            .header-txt h2{
+                font-size: 55px;
+                line-height: 65px;
+                color: #1d1d1b;
+                margin-bottom: 35px;
+            }
+            
+            .header-txt p{
+                font-size: 16px;
+                color: #5e5e5e;
+                margin-bottom: 45px;
+            }
+            
+            .header-txt span{
+                color: #27a1c2;
+            }
+        </style>
+
+        {%endblock%}

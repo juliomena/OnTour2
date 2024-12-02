@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Live MUSIC</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href={% static "/css/main.css" %} />
+		<link rel="stylesheet" href={% static "/css/fontawesome-all.min.css" %} />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/all.min.css" integrity="sha512-QfDd74mlg8afgSqm3Vq2Q65e9b3xMhJB4GZ9OcHDVy1hZ6pqBJPWWnMsKDXM7NINoKqJANNGBuVRIpIJ5dogfA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+	</head>
+	
+		<body class="homepage is-preload">
+			
+		<style>
+			body{
+				background-color: black;
+				color: white;
+				
+			}
+
+			.social-media {
+				padding: 2em;
+				background-color: black;
+			}
+			
+			.social-media h3 {
+				margin-bottom: 1em;
+				text-align: center;
+			}
+			
+			.icons {
+				list-style: none;
+				padding: 0;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			
+			.icons li {
+				margin: 0.5em;
+			}
+			
+			.icons a {
+				text-decoration: none;
+				color: #333;
+				font-size: 1.5em;
+			}
+			
+			/* Responsive Styles */
+			
+			/* Medium devices (tablets, 768px and up) */
+			@media (max-width: 768px) {
+				.social-media {
+					padding: 1.5em;
+				}
+			
+				.icons a {
+					font-size: 1.3em;
+				}
+			}
+			
+			/* Small devices (phones, 576px and up) */
+			@media (max-width: 576px) {
+				.social-media {
+					padding: 1em;
+				}
+			
+				.icons a {
+					font-size: 1.2em;
+				}
+			}
+		</style>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			<div id="header">
+				<img src="{% static 'img/logoempresa2.png' %}" alt="" style="height: 200px;">
+				
+
+				<!-- Logo -->
+			
+					<h1><a href="{% url 'index'%}" id="logo">LIVE MUSIC <em>Tenemos la música que buscas</em></a></h1>
+
+
+					<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li {%if clase == 'inicio'%}
+								class="current" {%endif%}><a href="/">Inicio</a></li>
+								<li>
+									<a href="#">Productos</a>
+									<ul>
+										<li><a href="{% url 'vinilo'%}">Vinilos</a></li>
+										<li><a href="{% url 'cd'%}">CD</a></li>
+										<li><a href="{% url 'cassette'%}">Cassette</a></li>
+										<li><a href="{% url 'comprar'%}">Todo</a></li>
+									</ul>
+								</li>
+							<li {%if clase == 'trabaja'%}
+								class="current" {%endif%}><a href="{% url 'trabaja'%}">Trabaja Aquí</a></li>
+
+								<li>
+									<li {%if clase == 'contactanos'%}
+									class="current" {%endif%}><a href="{% url 'contactanos'%}">Contactanos</a></li>
+	
+									<li>
+									{% if user.is_authenticated %}
+									
+									<a href="#">{{user.username}}</a>
+									<ul>
+										<li class="nav-item">
+										<a href="{% url 'perfil'%}">Mi Perfil</a>
+									</li>
+										<form id="logoutForm" action="accounts/logout/" method="post" class="navbar-right">
+											{% csrf_token %}
+									        <li ><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+											</ul>
+										</form>
+
+									
+									{% else %}
+									<li class="nav-item">
+										<a href="{% url 'login'%}">Login</a>
+									  </li>
+									{% endif %}
+								</li>
+								<li {%if clase == 'galeria'%}
+                                class="current" {%endif%}><a href="{% url 'galeria'%}">Galeria</a></li>
+								{% if user.is_authenticated %}
+
+								{% else %}
+								<li {%if clase == 'registro'%}
+                                class="current" {%endif%}><a href="{% url 'registro'%}">Registro</a></li>
+								{% endif %}
+								 {% comment %} <li><a href="two-sidebar.html">Two Sidebar</a></li>
+								<li><a href="no-sidebar.html">No Sidebar</a></li>  {% endcomment %}					<li {%if clase == 'comprar'%}
+								class="current" {%endif%}><a href="{% url 'comprar'%}">Comprar</a>								
+								<ul>
+									<li>
+					
+										<div>
+											<ul>
+												<li class="submenu">
+													<div id="carrito">
+														<table id="lista-carrito">
+															<thead>
+																<tr>
+																	<th>Imagen</th>
+																	<th>Nombre</th>
+																	<th>Precio</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody></tbody>
+														</table>
+														<a href="#" id="vaciar-carrito" class="btn-3">Vaciar Carrito</a>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li>
+										<a href="{% url 'comprar'%}">Productos</a>
+										<ul>
+											<li><a href="{% url 'vinilo'%}">Vinilos</a></li>
+											<li><a href="{% url 'cd'%}">CD</a></li>
+											<li><a href="{% url 'cassette'%}">Cassette</a></li>
+											<li><a href="{% url 'comprar'%}">Todo</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+
+						</ul>
+					</nav>
+			</div>
+		</div>
+
+  
+<br><div class="container">
+		<center>
+        <div class="audio-container">
+		  <audio id="audioPlayer" controls >
+			<source id="audioSource" src="{% static 'audio/TOOL.mp3' %}" type="audio/mpeg">
+			Tu navegador no soporta la reproducción de audio.
+		  </audio>		  
+		</div>
+		<button onclick="playRandomSong()">Aleatoria</button>
+		<!-- Lista de canciones -->
+		<ul id="playlist" style="display: none;">
+		  <li data-src="{% static 'audio/mac.mp3' %}"></li>
+		  <li data-src="{% static 'audio/bowie.mp3' %}"></li>
+		  <li data-src="{% static 'audio/metallica.mp3' %}"></li>
+		  <li data-src="{% static 'audio/TOOL.mp3' %}"></li>
+
+		  <!-- Agrega más canciones según sea necesario -->
+		</ul>
+	</center>
+	</div>	
+<br><br><br><br><br>
+                {% block content %}{% endblock %}
+
+
+
+            <!-- Footer -->
+				<div id="footer">
+					<div class="container">
+						<div class="row">
+							<section class="col-5">
+								<h3>Links to Stuff</h3>
+								<ul class="links">
+									<li><a href="#">Mattis et quis rutrum</a></li>
+									<li><a href="#">Suspendisse amet varius</a></li>
+									<li><a href="#">Sed et dapibus quis</a></li>
+									<li><a href="#">Rutrum accumsan dolor</a></li>
+									<li><a href="#">Mattis rutrum accumsan</a></li>
+									<li><a href="#">Suspendisse varius nibh</a></li>
+									<li><a href="#">Sed et dapibus mattis</a></li>
+								</ul>
+							</section>
+							<section class="col-5">
+								<h3>More Links to Stuff</h3>
+								<ul class="links">
+									<li><a href="#">Duis neque nisi dapibus</a></li>
+									<li><a href="#">Sed et dapibus quis</a></li>
+									<li><a href="#">Rutrum accumsan sed</a></li>
+									<li><a href="#">Mattis et sed accumsan</a></li>
+									<li><a href="#">Duis neque nisi sed</a></li>
+									<li><a href="#">Sed et dapibus quis</a></li>
+									<li><a href="#">Rutrum amet varius</a></li>
+								</ul>
+							</section>
+							<section class="social-media">
+								<h3>Social Media</h3>
+								<!-- Icons -->
+								<ul class="icons">
+									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+									<li><a href="#" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+								</ul>
+							</section>
+						</div>
+					</div>
+
+					<!-- Copyright -->
+						<div class="copyright">
+							<ul class="menu">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">Live-MUSIC</a></li>
+							</ul>
+						</div>
+
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src={% static "js/jquery.min.js" %}></script>
+			<script src={% static "js/jquery.dropotron.min.js"%}></script>
+			<script src={% static "js/browser.min.js"%}></script>
+			<script src={% static "js/breakpoints.min.js"%}></script>
+			<script src={% static "js/util.js"%}></script>
+			<script src={% static "js/main.js"%}></script>
+			<script src={% static "js/audio.js"%}></script>
+
+	</body>
+</html>
