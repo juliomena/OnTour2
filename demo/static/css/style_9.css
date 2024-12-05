@@ -1,12 +1,4 @@
-{% extends "demo/base.html" %}
-
-{% block content %}
-{% load static %}
-
-<link rel="stylesheet" href={% static "css/style_9.css" %}>
-
-{% comment %} <style>
-  body {
+body {
     background-color: black;
     color: white; /* Cambiamos el color del texto para que sea visible sobre el fondo negro */
   }
@@ -106,41 +98,3 @@
     .responsive-table td:nth-of-type(6):before { content: "Email: "; }
     .responsive-table td:nth-of-type(7):before { content: "Género: "; }
   }
-</style> {% endcomment %}
-
-<section>
-  <div class="container">
-    <table class="table table-striped table-dark responsive-table">
-      {% if demo %}
-      <thead>
-        <tr>
-          <th scope="col">RUN</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Teléfono</th>
-          <th scope="col">Fecha Nacimiento</th>
-          <th scope="col">Dirección</th>
-          <th scope="col">Email</th>
-          <th scope="col">Género</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% for postulante in demo %}
-        <tr>
-          <td>{{ postulante.rut }}</td>
-          <td>{{ postulante.nombre }} {{ postulante.apellido_paterno }} {{ postulante.apellido_materno }}</td>
-          <td>{{ postulante.telefono }}</td>
-          <td>{{ postulante.fecha_nacimiento }}</td>
-          <td>{{ postulante.direccion }}</td>
-          <td>{{ postulante.email }}</td>
-          <td>{{ postulante.id_genero.genero }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      {% endif %}
-    </table>
-    <a href="{% url 'crud' %}" class="btn btn-info">Volver a Postulantes</a>
-  </div>
-</section>
-
-{% endblock %}
